@@ -24,6 +24,7 @@ public class Restaurant {
     private String description;
     private Integer resPhone;
     private String resCountry;
+    @Enumerated(EnumType.STRING)
     private FoodType resFoodType;
 
     // Reference ==> Post_Feed Table

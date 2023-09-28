@@ -1,5 +1,6 @@
 package com.project.reviewfood.controllers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Post_Feed {
     private Long postFeedId;
     private String title;
     private String content;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date createDate;
 
     @OneToOne(mappedBy = "postFeed") //attribute of user class
@@ -33,7 +35,7 @@ public class Post_Feed {
     private List<Notification> notifications;
 
     @OneToMany(mappedBy = "postFeed")
-    private List<Likes> likes;
+    private List<Like_Post_Feed> postFeedLikes;
 
 
 }

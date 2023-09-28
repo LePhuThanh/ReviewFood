@@ -1,5 +1,6 @@
 package com.project.reviewfood.controllers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.reviewfood.controllers.enums.RatingNumber;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,6 +18,7 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ratingId;
     private Long userId;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date ratingDate;
     @Enumerated(EnumType.STRING)
     private RatingNumber rating;

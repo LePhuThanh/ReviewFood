@@ -8,37 +8,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Comment {
+public class Like_Comment {
     @Id
-    @Column(name = "comment_id")
+    @Column(name = "like_cmt_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long commentId;
+    private Long likeCommentId;
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
-    private Date create_date;
-    private String content;
+    private Date createDate;
 
     // Reference ==> User table
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Reference ==> Post_feed table
+    // Reference ==> Comment table
     @ManyToOne
-    @JoinColumn(name = "post_feed_id", nullable = false)
-    private Post_Feed postFeed;
-
-    @OneToMany(mappedBy = "comment")
-    private List<Image> images;
-
-    @OneToMany(mappedBy = "comment")
-    private List<Like_Comment> likeComments;
-
-
+    @JoinColumn(name = "comment_id", nullable = false)
+    private Comment comment;
 }

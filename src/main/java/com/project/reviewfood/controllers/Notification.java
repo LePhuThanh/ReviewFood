@@ -1,5 +1,6 @@
 package com.project.reviewfood.controllers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,6 +16,7 @@ public class Notification {
     @Column(name = "notif_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long notifId;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date notifDate;
     private Boolean isRead;
 

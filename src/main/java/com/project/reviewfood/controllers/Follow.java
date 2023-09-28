@@ -23,6 +23,6 @@ public class Follow {
     private User follower;
     //Reference ==> User table
     @ManyToOne
-    @JoinColumn(name = "following_id", nullable = false)
-    private User following;
+    @JoinColumn(name = "followed_user_id", nullable = false)
+    private User followedUser;
 }

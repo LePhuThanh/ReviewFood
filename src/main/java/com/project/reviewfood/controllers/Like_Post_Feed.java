@@ -1,5 +1,6 @@
 package com.project.reviewfood.controllers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,11 +14,12 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Likes {
+public class Like_Post_Feed {
     @Id
-    @Column(name = "like_id")
+    @Column(name = "like_post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeId;
+    private Long likePostId;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date createDate;
 
     // Reference ==> User table
@@ -30,8 +32,4 @@ public class Likes {
     @JoinColumn(name = "post_feed_id", nullable = false)
     private Post_Feed postFeed;
 
-    // Reference ==> Comment table
-    @ManyToOne
-    @JoinColumn(name = "comment_id", nullable = false)
-    private Comment comment;
 }

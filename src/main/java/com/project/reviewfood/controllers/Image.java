@@ -1,5 +1,6 @@
 package com.project.reviewfood.controllers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +20,10 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageId;
     private String imageName;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date uploadDate;
+    @Lob // attribute represents a large object type
+    private byte[] data;
 
     //Reference ==> Comment table
     @ManyToOne

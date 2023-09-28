@@ -1,5 +1,6 @@
 package com.project.reviewfood.controllers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.reviewfood.controllers.enums.StatusFriend;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,11 @@ public class Friend {
     private Long friendId;
     @Enumerated(EnumType.STRING)
     private StatusFriend status;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
+    @Column(name = "make_friend_date", nullable = true)
     private Date make_friend_date;
+    @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
+    @Column(name = "request_date", nullable = true)
     private Date request_date;
 
     //Reference ==> User table
