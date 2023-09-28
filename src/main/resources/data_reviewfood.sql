@@ -1,0 +1,11 @@
+SELECT* FROM post_feed;
+SELECT* FROM restaurant;
+SELECT* FROM user;
+SELECT* FROM comment;
+SELECT* FROM friend;
+SELECT* FROM notification;
+SELECT* FROM image;
+SELECT* FROM likes;
+SELECT* FROM follow;
+SELECT* FROM rating;
+SELECT* FROM share_post;
