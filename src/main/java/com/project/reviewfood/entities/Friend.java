@@ -1,7 +1,7 @@
-package com.project.reviewfood.controllers;
+package com.project.reviewfood.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.project.reviewfood.controllers.enums.StatusFriend;
+import com.project.reviewfood.entities.enums.StatusFriend;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

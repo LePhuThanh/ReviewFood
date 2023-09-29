@@ -1,4 +1,4 @@
-package com.project.reviewfood.controllers.enums;
+package com.project.reviewfood.entities.enums;
 
 public enum StatusFriend {
     WAITING,

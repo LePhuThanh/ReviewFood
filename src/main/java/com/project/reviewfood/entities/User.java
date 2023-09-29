@@ -1,8 +1,8 @@
-package com.project.reviewfood.controllers;
+package com.project.reviewfood.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.reviewfood.controllers.enums.FoodType;
-import com.project.reviewfood.controllers.enums.Sex;
+import com.project.reviewfood.entities.enums.FoodType;
+import com.project.reviewfood.entities.enums.Sex;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

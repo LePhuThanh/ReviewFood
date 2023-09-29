@@ -1,4 +1,4 @@
-package com.project.reviewfood.controllers;
+package com.project.reviewfood.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -14,11 +14,11 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Like_Comment {
+public class Like_Post_Feed {
     @Id
-    @Column(name = "like_cmt_id")
+    @Column(name = "like_post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long likeCommentId;
+    private Long likePostId;
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date createDate;
 
@@ -27,8 +27,9 @@ public class Like_Comment {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Reference ==> Comment table
+    // Reference ==> Post_Feed table
     @ManyToOne
-    @JoinColumn(name = "comment_id", nullable = false)
-    private Comment comment;
+    @JoinColumn(name = "post_feed_id", nullable = false)
+    private Post_Feed postFeed;
+
 }

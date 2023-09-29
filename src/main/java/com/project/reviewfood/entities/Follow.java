@@ -1,4 +1,4 @@
-package com.project.reviewfood.controllers;
+package com.project.reviewfood.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

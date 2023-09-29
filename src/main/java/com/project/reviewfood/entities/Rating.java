@@ -1,7 +1,7 @@
-package com.project.reviewfood.controllers;
+package com.project.reviewfood.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.project.reviewfood.controllers.enums.RatingNumber;
+import com.project.reviewfood.entities.enums.RatingNumber;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,4 +1,4 @@
-package com.project.reviewfood.controllers;
+package com.project.reviewfood.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -14,19 +14,21 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Image {
+public class Like_Comment {
     @Id
-    @Column(name = "image_id")
+    @Column(name = "like_cmt_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imageId;
-    private String imageName;
+    private Long likeCommentId;
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
-    private Date uploadDate;
-    @Lob // attribute represents a large object type
-    private byte[] data;
+    private Date createDate;
 
-    //Reference ==> Comment table
+    // Reference ==> User table
     @ManyToOne
-    @JoinColumn(name = "comment_id",nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    // Reference ==> Comment table
+    @ManyToOne
+    @JoinColumn(name = "comment_id", nullable = false)
     private Comment comment;
 }

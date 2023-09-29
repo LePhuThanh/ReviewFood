@@ -1,6 +1,6 @@
-package com.project.reviewfood.controllers;
+package com.project.reviewfood.entities;
 
-import com.project.reviewfood.controllers.enums.FoodType;
+import com.project.reviewfood.entities.enums.FoodType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
