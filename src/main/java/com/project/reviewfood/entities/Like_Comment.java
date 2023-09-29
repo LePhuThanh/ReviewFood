@@ -1,5 +1,6 @@
 package com.project.reviewfood.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,10 +26,12 @@ public class Like_Comment {
     // Reference ==> User table
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     // Reference ==> Comment table
     @ManyToOne
     @JoinColumn(name = "comment_id", nullable = false)
+    @JsonBackReference
     private Comment comment;
 }

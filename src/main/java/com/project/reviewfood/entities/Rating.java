@@ -1,5 +1,6 @@
 package com.project.reviewfood.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.reviewfood.entities.enums.RatingNumber;
 import jakarta.persistence.*;
@@ -26,6 +27,7 @@ public class Rating {
     //Reference ==> Restaurant table
     @ManyToOne
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonBackReference
     private Restaurant restaurant;
 
 }

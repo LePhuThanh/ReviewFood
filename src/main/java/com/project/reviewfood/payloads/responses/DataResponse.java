@@ -17,4 +17,9 @@ public class DataResponse {
         this.message = null;
         this.data = data;
     }
+    public DataResponse (String status, String message,Object data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
 }

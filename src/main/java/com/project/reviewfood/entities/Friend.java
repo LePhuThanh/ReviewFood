@@ -1,5 +1,6 @@
 package com.project.reviewfood.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.reviewfood.entities.enums.StatusFriend;
 import jakarta.persistence.*;
@@ -32,11 +33,13 @@ public class Friend {
     //Reference ==> User table
     @ManyToOne(optional = false) // obligatory // User is required
     @JoinColumn(name = "sender_id",nullable = false)
+    @JsonBackReference
     private User sender;
 
     //Reference ==> User table
     @ManyToOne(optional = false) // obligatory // User is required
     @JoinColumn(name = "receiver_id",nullable = false)
+    @JsonBackReference
     private User receiver;
 
 }

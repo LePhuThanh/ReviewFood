@@ -1,5 +1,8 @@
 package com.project.reviewfood.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.reviewfood.entities.enums.FoodType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -30,9 +33,11 @@ public class Restaurant {
     // Reference ==> Post_Feed Table
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_feed_id", referencedColumnName = "post_feed_id") // at main id of post_feed
+    @JsonBackReference
     private Post_Feed postFeed;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant") // is attribute of Rating class
+    @JsonManagedReference
     private List<Rating> ratings;
 
 }

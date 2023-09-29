@@ -1,5 +1,6 @@
 package com.project.reviewfood.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,9 +21,12 @@ public class Follow {
     //Reference ==> User table
     @ManyToOne
     @JoinColumn(name = "follower_id", nullable = false)
+    @JsonBackReference
     private User follower;
+
     //Reference ==> User table
     @ManyToOne
     @JoinColumn(name = "followed_user_id", nullable = false)
+    @JsonBackReference
     private User followedUser;
 }

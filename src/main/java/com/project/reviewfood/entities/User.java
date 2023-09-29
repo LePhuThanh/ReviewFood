@@ -1,6 +1,7 @@
 package com.project.reviewfood.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
 import jakarta.persistence.*;
@@ -44,31 +45,50 @@ public class User {
     private String email;
     private String hometown;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user") // is attribute of Comment class
+    @JsonManagedReference
     private List<Comment> comments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "sender") // is attribute of Friend class
+    @JsonManagedReference
     private List<Friend> senders;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "receiver") // is attribute of Friend class
+    @JsonManagedReference
     private List<Friend> receivers;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user") // is attribute of Notification class
+    @JsonManagedReference
     private List<Notification> notifications;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "follower") // is attribute of Follow class
+    @JsonManagedReference
     private List<Follow> followers;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "followedUser") // is attribute of Follow class
+    @JsonManagedReference
     private List<Follow> followedUsers;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user") // is attribute of Like_Post_Feed class
+    @JsonManagedReference
     private List<Like_Post_Feed> postFeedLikes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user") // is attribute of Like_Comment class
+    @JsonManagedReference
     private List<Like_Comment> commentLikes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "personPost") // is attribute of Post_Feed class
+    @JsonManagedReference
     private List<Post_Feed> personPosts;
 
+    //https://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
 }
