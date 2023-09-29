@@ -24,6 +24,12 @@ public class Post_Feed {
     private String content;
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date createDate;
+    private Long shared_post_id;
+
+    // Reference ==> User table
+    @ManyToOne
+    @JoinColumn(name = "person_post_id", nullable = false)
+    private User personPost;
 
     @OneToOne(mappedBy = "postFeed") //attribute of user class
     private Restaurant restaurant;
@@ -31,10 +37,7 @@ public class Post_Feed {
     @OneToMany(mappedBy = "postFeed") // is attribute of Comment class
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "postFeed") // is attribute of Notification class
-    private List<Notification> notifications;
-
-    @OneToMany(mappedBy = "postFeed")
+    @OneToMany(mappedBy = "postFeed")  // is attribute of Like_Post_Feed class
     private List<Like_Post_Feed> postFeedLikes;
 
 

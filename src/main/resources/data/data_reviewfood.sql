@@ -20,13 +20,19 @@ INSERT INTO review_food.user VALUES (32, '0375254603', 16, 'Kevin', 'Winsor', 'k
 INSERT INTO review_food.user VALUES (68, '0375254604', 17, 'Hook', 'Kabang', 'hook@gmail.com','NON_VEGETARIAN_FOOD', 'Thailand','passwordhook', 'MALE', 'hookkabang');
 INSERT INTO review_food.user VALUES (21, '0375254605', 18, 'Maxwell', 'Vip', 'maxwell@gmail.com','NON_VEGETARIAN_FOOD', 'England','passwordmaxwell', 'MALE', 'maxwell');
 
-/*create_date, post_feed_id, content, title*/ 
-INSERT INTO review_food.post_feed VALUES ('2023-02-06',1,'Delicious grilled pork restaurant','Delicious restaurant');
-INSERT INTO review_food.post_feed VALUES ('2022-10-25',2,'The best vegetarian restaurant in Ho Chi Minh.','Vegetarian restaurant');
-INSERT INTO review_food.post_feed VALUES ('2023-05-18',3,'Hare meat restaurant','New restaurant');
-INSERT INTO review_food.post_feed VALUES ('2022-12-10',4,'The restaurant serves the best in the Binh Duong province','Good restaurant service');
-INSERT INTO review_food.post_feed VALUES ('2023-07-28',5,'French cuisine restaurant opened','French restaurant');
-INSERT INTO review_food.post_feed VALUES ('2023-01-16',6,'Dimsum restaurant offers 200 vouchers','Dimsum restaurant');
+/*create_date, person_post_id, post_feed_id, shared_post_id, content, title*/ 
+INSERT INTO review_food.post_feed VALUES ('2023-02-06', 1, 1, null,'Delicious grilled pork restaurant','Delicious restaurant'); 
+INSERT INTO review_food.post_feed VALUES ('2022-10-25', 4, 2, null,'The best vegetarian restaurant in Ho Chi Minh.','Vegetarian restaurant');
+INSERT INTO review_food.post_feed VALUES ('2023-05-18', 2, 3, null,'Hare meat restaurant','New restaurant');
+INSERT INTO review_food.post_feed VALUES ('2022-12-10', 2, 4, null,'The restaurant serves the best in the Binh Duong province','Good restaurant service');
+INSERT INTO review_food.post_feed VALUES ('2023-07-28', 3, 5, null,'French cuisine restaurant opened','French restaurant');
+INSERT INTO review_food.post_feed VALUES ('2023-01-16', 4, 6, null,'Dimsum restaurant offers 200 vouchers','Dimsum restaurant');
+/*sharing activity is to post with shared_post_id*/
+INSERT INTO review_food.post_feed VALUES ('2022-02-10', 2, 7, 1,'Best restaurant I have ever eaten at','Sharing restaurant'); 
+INSERT INTO review_food.post_feed VALUES ('2022-10-26', 2, 8, 2,'Must try','Sharing restaurant');
+INSERT INTO review_food.post_feed VALUES ('2022-02-11', 4, 9, 1,'The best restaurant','Sharing restaurant');
+INSERT INTO review_food.post_feed VALUES ('2022-02-12', 6, 10, 1,'Delicious!','Sharing restaurant');
+INSERT INTO review_food.post_feed VALUES ('2023-05-20', 18, 11, 3,'The fucking delicious food!','Sharing restaurant');
 
 /*res_phone, post_feed_id, restaurant_id, description, res_address, res_country, res_food_type, res_name*/ 
 INSERT INTO review_food.restaurant VALUES ('0906123456', 5, 1, 'French cuisine', '123 To Hien Thanh, district 10, Ho Chi Minh', 'France', 'NON_VEGETARIAN_FOOD', 'Truffle Restaurant');
@@ -100,7 +106,16 @@ INSERT INTO review_food.like_post_feed VALUES ('2022-10-30', 5, 2, 10);
 INSERT INTO review_food.like_post_feed VALUES ('2023-05-19', 6, 3, 2);
 INSERT INTO review_food.like_post_feed VALUES ('2022-12-11', 7, 4, 2);
 
-
+/*is_read, comment_id, like_cmt_id, like_post_id, notif_date, notif_id, post_feed_id, user_id*/ 
+/*notif ==> comment_id*/
+INSERT INTO review_food.notification VALUES (false, 1, null, null,'2023-03-02', 1, 1, 'You have commented on your post!');
+INSERT INTO review_food.notification VALUES (false, 3, null, null,'2023-04-20', 2, 1, 'Your post has had (id = 2) comment!');
+/*notif ==> like_cmt_id*/ 
+INSERT INTO review_food.notification VALUES (false, null, 1, null,'2023-03-03', 3, 1, 'Your comment has had (id = 7) like!');
+INSERT INTO review_food.notification VALUES (false, null, 2, null,'2023-03-04', 4, 1, 'Your comment has had (id = 6) like!');
+/*notif ==> like_post_id*/ 
+INSERT INTO review_food.notification VALUES (false, null, null, 1,'2023-02-07', 5, 1, 'Your post has had (id = 7) like!');
+INSERT INTO review_food.notification VALUES (false, null, null, 2,'2023-02-07', 6, 1, 'Your comment has had (id = 2) like!');
 
 /*check table*/ 
 SELECT* FROM post_feed;
@@ -114,4 +129,3 @@ SELECT* FROM like_comment;
 SELECT* FROM like_post_feed;
 SELECT* FROM follow;
 SELECT* FROM rating;
-SELECT* FROM share_post;

@@ -68,9 +68,7 @@ public class User {
     @OneToMany(mappedBy = "user") // is attribute of Like_Comment class
     private List<Like_Comment> commentLikes;
 
-    @OneToMany(mappedBy = "personPost") // is attribute of Share_Post class
-    private List<Share_Post> personPosts;
+    @OneToMany(mappedBy = "personPost") // is attribute of Post_Feed class
+    private List<Post_Feed> personPosts;
 
-    @OneToMany(mappedBy = "personShare") // is attribute of Share_Post class
-    private List<Share_Post> personShares;
 }

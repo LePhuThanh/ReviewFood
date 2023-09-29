@@ -19,15 +19,15 @@ public class Notification {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "GMT+7")
     private Date notifDate;
     private Boolean isRead;
+    private String content;
+    private Long likePostId;
+    private Long likeCmtId;
+    private Long commentId;
 
     //Reference ==> User table
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    //Reference ==> Post_feed table
-    @ManyToOne
-    @JoinColumn(name = "post_feed_id", nullable = false)
-    private Post_Feed postFeed;
 
 }
