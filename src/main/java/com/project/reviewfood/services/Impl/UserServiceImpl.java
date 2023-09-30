@@ -21,31 +21,41 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUserByUserName(String userName) {
-        return null;
+        return userRepository.findUserByUserName(userName);
     }
 
     @Override
     public User getUserByUserId(Long userId) {
-        return null;
+        return userRepository.findUserByUserId(userId);
     }
 
     @Override
     public User getUserByPhone(Integer phone) {
-        return null;
+        return userRepository.findUserByPhone(phone);
     }
 
     @Override
     public List<User> getUserBySex(Sex sex) {
-        return null;
+        return userRepository.findUserBySex(sex);
     }
 
     @Override
     public List<User> getUserByAge(Integer age) {
-        return null;
+        return userRepository.findUserByAge(age);
     }
 
     @Override
-    public List<User> getUserByFavouriteFoodType(FoodType foodType) {
-        return null;
+    public List<User> getUsersByAgeGreaterThan(Integer age) {
+        return userRepository.findUsersByAgeGreaterThan(age);
+    }
+
+    @Override
+    public List<User> getUserByFoodType(FoodType foodType) {
+        return userRepository.findUserByFoodType(foodType);
+    }
+
+    @Override
+    public List<User> getUsersByAgeBetweenAndSex(Integer minAge, Integer maxAge, Sex sex) {
+        return userRepository.findUsersByAgeBetweenAndSex(minAge, maxAge, sex);
     }
 }

@@ -15,5 +15,9 @@ public interface UserService {
     User getUserByPhone(Integer phone);
     List<User> getUserBySex(Sex sex);
     List<User> getUserByAge(Integer age);
-    List<User> getUserByFavouriteFoodType(FoodType foodType);
+    List<User> getUsersByAgeGreaterThan(Integer age);
+    List<User> getUserByFoodType(FoodType foodType);
+    List<User> getUsersByAgeBetweenAndSex (Integer minAge, Integer maxAge, Sex sex);
+
+
 }

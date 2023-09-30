@@ -3,6 +3,7 @@ package com.project.reviewfood.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.reviewfood.entities.enums.FoodType;
+import com.project.reviewfood.entities.enums.Role;
 import com.project.reviewfood.entities.enums.Sex;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -31,6 +32,7 @@ public class User {
     @Column(name = "last_name", nullable = false)
     @Size(min = 2,max = 300)
     private String lastname; // Họ
+    @Column(nullable = false, unique = true)
     private String userName;
     @JsonIgnore
     private String password;
@@ -44,6 +46,9 @@ public class User {
     private Integer age;
     private String email;
     private String hometown;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user") // is attribute of Comment class
