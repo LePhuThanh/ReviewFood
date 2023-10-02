@@ -5,7 +5,9 @@ import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
 import com.project.reviewfood.repositories.UserRepository;
 //import com.project.reviewfood.security.CustomUserDetails;
+import com.project.reviewfood.security.CustomUserDetails;
 import com.project.reviewfood.services.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,11 +15,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Override
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserByPhone(Integer phone) {
+    public User getUserByPhone(String phone) {
         return userRepository.findUserByPhone(phone);
     }
 
@@ -68,10 +71,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("No user found with the given " + username);
+        if (user != null){
+            System.out.println("In the user details service");
+            return new CustomUserDetails(user);
         }
-//        return new CustomUserDetails(user);
-        return null;
+        throw  new UsernameNotFoundException(username + " User is not valid");
     }
+
+
 }

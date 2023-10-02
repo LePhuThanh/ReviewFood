@@ -9,12 +9,13 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 @EnableJpaRepositories
 public interface UserRepository extends JpaRepository<User, Long> {
     User findUserByUsername(String username);
     User findUserByUserId(Long userId);
-    User findUserByPhone(Integer phone);
+    User findUserByPhone(String phone);
     List<User> findUserBySex(Sex sex);
     List<User> findUserByAge(Integer age);
     List<User> findUsersByAgeGreaterThan(Integer age);

@@ -6,13 +6,14 @@ import com.project.reviewfood.entities.enums.Sex;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface UserService {
     List<User> getAllUser();
     User getUserByUsername(String username);
     User getUserByUserId(Long userId);
-    User getUserByPhone(Integer phone);
+    User getUserByPhone(String phone);
     List<User> getUserBySex(Sex sex);
     List<User> getUserByAge(Integer age);
     List<User> getUsersByAgeGreaterThan(Integer age);

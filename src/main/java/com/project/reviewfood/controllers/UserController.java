@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/v1/user")
@@ -47,7 +48,7 @@ public class UserController {
         throw new CustomException("404", "Not found any users");
     }
     @GetMapping(value = "/getUserByPhone")
-    public ResponseEntity<DataResponse> getUserByPhone(@PathParam("phone") Integer phone){
+    public ResponseEntity<DataResponse> getUserByPhone(@PathParam("phone") String phone){
         User user = userService.getUserByPhone(phone);
         if(user != null){
             return ResponseEntity.status(HttpStatus.OK).body(

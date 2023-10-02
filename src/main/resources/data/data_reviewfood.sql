@@ -2,7 +2,7 @@ USE review_food;
 
 /*age, phone, user_id, first_name, last_name, email, food_type, hometown, password, sex, user_name*/ 
 INSERT INTO review_food.user VALUES (18, '0375254687', 1, 'Cong Truong', 'Trinh', 'trinhtruong@gmail.com','NON_VEGETARIAN_FOOD', 'Tay Ninh', 'passwordtrinhtruong', 'USER', 'MALE', 'trinhtruong');
-INSERT INTO review_food.user VALUES (24, '0375254688', 2, 'Phu Thanh', 'Le', 'phuthanh@gmail.com','ALL_FOOD', 'Binh Duong','passwordphuthanh', 'ADMIN', 'MALE', 'phuthanh');
+INSERT INTO review_food.user VALUES (24, '0375254688', 2, 'Phu Thanh', 'Le', 'phuthanh@gmail.com','ALL_FOOD', 'Binh Duong','passwordphuthanh', 'ADMIN', 'MALE', 'admin');
 INSERT INTO review_food.user VALUES (23, '0375254689', 3, 'Thanh Long', 'Nguyen', 'thanhlong@gmail.com','ALL_FOOD', 'Ba Ria Vung Tau','passwordthanhlong', 'USER', 'MALE', 'thanhlong');
 INSERT INTO review_food.user VALUES (40, '0375254690', 4, 'Minh Tam', 'Tran Dang', 'minhtam@gmail.com','NON_VEGETARIAN_FOOD', 'Ho Chi Minh', 'passwordminhtam', 'USER', 'MALE', 'minhtam');
 INSERT INTO review_food.user VALUES (62, '0375254691', 5, 'Quang Long', 'Banh', 'quanglong@gmail.com','VEGETARIAN_FOOD', 'Dong Nai','passwordquanglong', 'USER', 'LGBT', 'quanglong');

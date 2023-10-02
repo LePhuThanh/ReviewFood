@@ -21,7 +21,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+@Table(name = "users")
+public class User  {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,11 +33,12 @@ public class User {
     @Column(name = "last_name", nullable = false)
     @Size(min = 2,max = 300)
     private String lastname; // Họ
+
     @Column(nullable = false, unique = true)
     private String username;
-    @JsonIgnore
     private String password;
-    private Integer phone;
+
+    private String phone;
     @Enumerated(EnumType.STRING)
     private FoodType foodType; //favourite the type of food
     @Enumerated(EnumType.STRING)
@@ -47,7 +49,7 @@ public class User {
     private String email;
     private String hometown;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role_function",
@@ -100,6 +102,26 @@ public class User {
     @OneToMany(mappedBy = "personPost") // is attribute of Post_Feed class
     @JsonManagedReference
     private List<Post_Feed> personPosts;
+
+    public User(int i, String firstname, String lastname, String username,
+                String encodedPassword, String phone, FoodType foodType,
+                Sex sex, Integer age, String email, String hometown,
+                Set<Role> authorities) {
+        super();
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = encodedPassword;
+        this.phone = phone;
+        this.foodType = foodType;
+        this.sex = sex;
+        this.age = age;
+        this.email = email;
+        this.hometown = hometown;
+        this.authorities = authorities;
+    }
+
+
 
     //https://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
 
