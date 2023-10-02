@@ -60,7 +60,7 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             String token = tokenService.generateJwt(auth);
             return new LoginResponse(userRepository.findUserByUsername(request.getUsername()), token);
         } catch (AuthenticationException e) {
-            return new LoginResponse(null, "Error JWT");
+            return new LoginResponse(null, "Error don't authentication and generate JWT");
         }
     }
 }
