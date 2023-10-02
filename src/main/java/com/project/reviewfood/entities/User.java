@@ -33,7 +33,7 @@ public class User {
     @Size(min = 2,max = 300)
     private String lastname; // Họ
     @Column(nullable = false, unique = true)
-    private String userName;
+    private String username;
     @JsonIgnore
     private String password;
     private Integer phone;

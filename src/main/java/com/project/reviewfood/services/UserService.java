@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface UserService {
     List<User> getAllUser();
-    User getUserByUserName(String userName);
+    User getUserByUsername(String username);
     User getUserByUserId(Long userId);
     User getUserByPhone(Integer phone);
     List<User> getUserBySex(Sex sex);

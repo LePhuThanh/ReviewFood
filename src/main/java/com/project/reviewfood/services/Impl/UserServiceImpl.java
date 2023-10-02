@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User getUserByUserName(String userName) {
-        return userRepository.findUserByUserName(userName);
+    public User getUserByUsername(String username) {
+        return userRepository.findUserByUsername(username);
     }
 
     @Override
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     //When a user log in, SS will need to get the existing UserDetails information to check
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findUserByUserName(username);
+        User user = userRepository.findUserByUsername(username);
         if(user == null){
             throw new UsernameNotFoundException("No user found with the given " + username);
         }

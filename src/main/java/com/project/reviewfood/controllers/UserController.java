@@ -30,7 +30,7 @@ public class UserController {
     }
     @GetMapping(value = "/getUserByUserName")
     public ResponseEntity<DataResponse> getUserByUserName(@PathParam("userName") String userName){
-        User user = userService.getUserByUserName(userName);
+        User user = userService.getUserByUsername(userName);
         if(user != null){
             return ResponseEntity.status(HttpStatus.OK).body(
                     new DataResponse("200", "Get user by user name successfully", user));
