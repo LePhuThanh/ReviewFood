@@ -3,7 +3,6 @@ package com.project.reviewfood.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.reviewfood.entities.enums.FoodType;
-import com.project.reviewfood.entities.enums.Role;
 import com.project.reviewfood.entities.enums.Sex;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -15,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -47,8 +47,14 @@ public class User {
     private String email;
     private String hometown;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role_function",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id")}
+    )
+    private Set<Role> authorities;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user") // is attribute of Comment class
@@ -96,4 +102,5 @@ public class User {
     private List<Post_Feed> personPosts;
 
     //https://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
+
 }

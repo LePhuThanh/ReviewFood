@@ -4,14 +4,18 @@ import com.project.reviewfood.entities.User;
 import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
 import com.project.reviewfood.repositories.UserRepository;
+//import com.project.reviewfood.security.CustomUserDetails;
 import com.project.reviewfood.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     UserRepository userRepository;
     @Override
@@ -57,5 +61,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersByAgeBetweenAndSex(Integer minAge, Integer maxAge, Sex sex) {
         return userRepository.findUsersByAgeBetweenAndSex(minAge, maxAge, sex);
+    }
+
+    //implement from UserDetailsService
+    //When a user log in, SS will need to get the existing UserDetails information to check
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findUserByUserName(username);
+        if(user == null){
+            throw new UsernameNotFoundException("No user found with the given " + username);
+        }
+//        return new CustomUserDetails(user);
+        return null;
     }
 }
