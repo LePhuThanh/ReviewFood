@@ -1,6 +1,7 @@
 package com.project.reviewfood.services.Auth;
 import com.project.reviewfood.entities.Role;
 import com.project.reviewfood.entities.User;
+import com.project.reviewfood.handlers.CustomException;
 import com.project.reviewfood.payloads.requests.LoginRequest;
 import com.project.reviewfood.payloads.requests.RegisterUserRequest;
 import com.project.reviewfood.repositories.RoleRepository;
@@ -34,7 +35,13 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     private TokenService tokenService;
 
     public User registerUser(RegisterUserRequest request){
+        // Check exist username in DB
+        if(userRepository.existsByUsername(request.getUsername())){
+            throw new CustomException("400","Username is already taken");
+        }
+        //Encode password
         String encodedPassword = passwordEncoder.encode(request.getPassword());
+        //Set role
         Role userRole = roleRepository.findRoleByAuthority("USER").get();
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRole);

@@ -8,6 +8,7 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import com.project.reviewfood.security.rsautils.RSAKeyProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,7 +27,10 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
+
     private final RSAKeyProperties keys;
+
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();

@@ -26,7 +26,7 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.OK).body(
                     new DataResponse("200", "Register account successfully", user));
         }
-        throw new CustomException("404", "Not found any users");
+        throw new CustomException("404", "Register account failed");
     }
     @PostMapping(value = "/login")
     public ResponseEntity<DataResponse> loginUser(@RequestBody LoginRequest request){

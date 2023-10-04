@@ -21,30 +21,5 @@ public class ReviewfoodApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReviewfoodApplication.class, args);
 	}
-	@Bean
-	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncode){
-		return args ->{
-			if(roleRepository.findRoleByAuthority("ADMIN").isPresent()) return;
-			Role adminRole = roleRepository.save(new Role("ADMIN"));
-			roleRepository.save(new Role("USER"));
-
-			Set<Role> roles = new HashSet<>();
-			roles.add(adminRole);
-
-			User admin = new User(1,
-					"Phu Thanh",
-					"Le",
-					"admin",
-					passwordEncode.encode("password"),
-					"0375254688",
-					FoodType.ALL_FOOD,
-					Sex.MALE,
-					24,
-					"phuthanh@gmail.com",
-					"Binh Duong",
-					roles);
-			userRepository.save(admin);
-		};
-	}
 
 }

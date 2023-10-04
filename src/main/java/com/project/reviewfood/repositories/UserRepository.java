@@ -21,6 +21,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUsersByAgeGreaterThan(Integer age);
     List<User> findUsersByAgeBetweenAndSex(Integer minAge, Integer maxAge, Sex sex);
     List<User> findUserByFoodType(FoodType foodType);
+    Boolean existsByUsername (String username);
 
 //    @Query(value = "SELECT u FROM User u WHERE u.favouriteFoodType = :foodType",nativeQuery = true) //JPQL (Java Persistence Query Language)
 //    List<User> findUserByFavouriteFoodType(@Param("foodType") String foodType);
