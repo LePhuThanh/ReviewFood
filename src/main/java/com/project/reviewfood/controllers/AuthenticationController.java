@@ -37,4 +37,5 @@ public class AuthenticationController {
         }
         throw new CustomException("404", "Not found any users");
     }
+
 }

@@ -5,10 +5,14 @@ import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
 import com.project.reviewfood.handlers.CustomException;
 import com.project.reviewfood.payloads.requests.UpdateUserRequest;
+import com.project.reviewfood.payloads.responses.DataResponse;
 import com.project.reviewfood.repositories.UserRepository;
 //import com.project.reviewfood.security.CustomUserDetails;
 import com.project.reviewfood.security.CustomUserDetails;
 import com.project.reviewfood.services.UserService;
+import com.project.reviewfood.util.EmailUtil;
+import com.project.reviewfood.util.OtpUtil;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,6 +20,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +29,10 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private EmailUtil emailUtil;
+    @Autowired
+    private OtpUtil otpUtil;
     @Override
     public List<User> getAllUser() {
         return userRepository.findAll();
@@ -84,6 +94,38 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         throw new CustomException("404", "Not found user");
     }
+
+    @Override
+    public Boolean sendOtpViaEmail(String email) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new CustomException("404","User not found with this email: " + email));
+
+        String otp = otpUtil.generateOtp();
+        user.setOtp(otp);
+        user.setOtpGenerateTime(LocalDateTime.now());
+        userRepository.save(user);
+        try {
+            emailUtil.sendOtpEmail(email, otp);
+        } catch (MessagingException e){
+            throw new CustomException("500","Unable to send otp please try again!");
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean verifyUserEmail(String email, String otp) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new CustomException("404","User not found with this email: " + email));
+        if (user.getOtp().equals(otp) && Duration.between(user.getOtpGenerateTime(),
+                LocalDateTime.now()).getSeconds() < (2 * 60)) {
+            // Verified Email
+            user.setActiveEmail(true);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
 
     //implement from UserDetailsService
     //When a user log in, SS will need to get the existing UserDetails information to check

@@ -117,4 +117,33 @@ public class UserController {
         }
         throw new CustomException("500", "Update the user failed");
     }
+
+    @GetMapping(value = "/getOtpToVerifyUserEmail")
+    public ResponseEntity<DataResponse> getOtpToVerifyUserEmail(@RequestParam String email) {
+        Boolean isSendOtp = userService.sendOtpViaEmail(email);
+        if(isSendOtp) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new DataResponse("200", "Send Otp Successfully", true));
+        }
+        throw new CustomException("500", "Unable to send otp please try again!");
+    }
+    @PutMapping(value = "/verifyUserEmail")
+    public ResponseEntity<DataResponse> verifyUserEmail(@RequestParam String email, String otp) {
+        Boolean isVerifiedEmail = userService.verifyUserEmail(email, otp);
+        if(isVerifiedEmail) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new DataResponse("200", "OTP verified you can use function forgot password", true));
+        }
+        throw new CustomException("500", "Please regenerate otp and try again!");
+    }
+    @PutMapping(value = "/regenerateOtp")
+    public ResponseEntity<DataResponse> regenerateOtp(@RequestParam String email) {
+        Boolean isRegenerateOtp = userService.sendOtpViaEmail(email);
+        if(isRegenerateOtp) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new DataResponse("200", "Email send ... sent please verify account within 2 minute", true));
+        }
+        throw new CustomException("500", "Regenerate otp failed and try again!");
+    }
+
 }
