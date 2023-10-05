@@ -4,6 +4,7 @@ import com.project.reviewfood.entities.User;
 import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
 import com.project.reviewfood.handlers.CustomException;
+import com.project.reviewfood.payloads.requests.UpdateUserRequest;
 import com.project.reviewfood.payloads.responses.DataResponse;
 import com.project.reviewfood.services.UserService;
 import jakarta.websocket.server.PathParam;
@@ -106,4 +107,14 @@ public class UserController {
         throw new CustomException("404", "Not found any users");
     }
 
+    @PutMapping(value = "/updateInfUser/{userId}")
+    public ResponseEntity<DataResponse> updateInfUser(@PathVariable Long userId,
+                                                      @RequestBody UpdateUserRequest updateUserRequest) {
+        User updateUser = userService.updateInfUser(userId, updateUserRequest);
+        if(updateUser != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new DataResponse("200", "Update the user successfully", updateUser));
+        }
+        throw new CustomException("500", "Update the user failed");
+    }
 }

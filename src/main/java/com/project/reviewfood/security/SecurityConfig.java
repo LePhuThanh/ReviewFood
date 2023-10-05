@@ -24,8 +24,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/api/v1/user/**").hasRole("ADMIN")
-                                .requestMatchers("/api/v1/test/**").hasAnyRole("ADMIN","USER")
+                                .requestMatchers("/api/v1/user/**").hasAnyRole("ADMIN","USER")
+                                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 );
 //                .httpBasic(Customizer.withDefaults())

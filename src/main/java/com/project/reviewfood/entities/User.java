@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -48,6 +49,11 @@ public class User  {
     private Integer age;
     private String email;
     private String hometown;
+
+    //Email Verification
+    private String otp;
+    private Boolean activeEmail;
+    private LocalDateTime otpGenerateTime;
 
 //    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)

@@ -3,6 +3,7 @@ package com.project.reviewfood.services;
 import com.project.reviewfood.entities.User;
 import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
+import com.project.reviewfood.payloads.requests.UpdateUserRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,4 +22,5 @@ public interface UserService {
     List<User> getUsersByAgeBetweenAndSex (Integer minAge, Integer maxAge, Sex sex);
 
 
+    User updateInfUser(Long userId, UpdateUserRequest updateUserRequest);
 }

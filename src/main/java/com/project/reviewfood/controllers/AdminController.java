@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/api/v1/test")
+@RequestMapping(path = "/api/v1/admin")
 @CrossOrigin("*") // Permit all domain access
-public class TestController {
+public class AdminController {
     @GetMapping(value = "/")
-    public String helloUserController(){
-        return "User access level";
+    public String helloAdminController(){
+        return "Admin access level";
     }
 }
 

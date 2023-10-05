@@ -3,6 +3,8 @@ package com.project.reviewfood.services.Impl;
 import com.project.reviewfood.entities.User;
 import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
+import com.project.reviewfood.handlers.CustomException;
+import com.project.reviewfood.payloads.requests.UpdateUserRequest;
 import com.project.reviewfood.repositories.UserRepository;
 //import com.project.reviewfood.security.CustomUserDetails;
 import com.project.reviewfood.security.CustomUserDetails;
@@ -64,6 +66,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public List<User> getUsersByAgeBetweenAndSex(Integer minAge, Integer maxAge, Sex sex) {
         return userRepository.findUsersByAgeBetweenAndSex(minAge, maxAge, sex);
+    }
+
+    @Override
+    public User updateInfUser(Long userId, UpdateUserRequest updateUserRequest) {
+        User existUser = userRepository.findUserByUserId(userId);
+        if (existUser != null){
+            existUser.setFirstname(updateUserRequest.getFirstname());
+            existUser.setLastname(updateUserRequest.getLastname());
+            existUser.setPhone(updateUserRequest.getPhone());
+            existUser.setFoodType(updateUserRequest.getFoodType());
+            existUser.setSex(updateUserRequest.getSex());
+            existUser.setAge(updateUserRequest.getAge());
+            existUser.setEmail(updateUserRequest.getEmail());
+            existUser.setHometown(updateUserRequest.getHometown());
+            return userRepository.save(existUser);
+        }
+        throw new CustomException("404", "Not found user");
     }
 
     //implement from UserDetailsService

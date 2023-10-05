@@ -15,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.HashSet;
 import java.util.Set;
 
+
+//ReviewFood is Resource Server, is still Authorization Server in OAuth2
+//An application can simultaneously be responsible for user authentication (Authorization Server) and providing resources to other applications (Resource Server).
 @SpringBootApplication
 public class ReviewfoodApplication {
 
