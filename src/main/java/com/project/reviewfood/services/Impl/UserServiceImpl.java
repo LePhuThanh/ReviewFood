@@ -5,28 +5,30 @@ import com.project.reviewfood.entities.enums.FoodType;
 import com.project.reviewfood.entities.enums.Sex;
 import com.project.reviewfood.handlers.CustomException;
 import com.project.reviewfood.payloads.requests.UpdateUserRequest;
-import com.project.reviewfood.payloads.responses.DataResponse;
 import com.project.reviewfood.repositories.UserRepository;
-//import com.project.reviewfood.security.CustomUserDetails;
 import com.project.reviewfood.security.CustomUserDetails;
 import com.project.reviewfood.services.UserService;
 import com.project.reviewfood.util.EmailUtil;
 import com.project.reviewfood.util.OtpUtil;
 import jakarta.mail.MessagingException;
-import lombok.RequiredArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -124,6 +126,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Boolean resetPassword(String username, String password, String newPassword) {
+        try {
+            User user = userRepository.findUserByUsername(username.trim());
+            if (user != null && Objects.equals(user.getPassword(), password)) { // equals compare string; == compare object => != location memory
+                //Encode Password
+                String encodedPassword = passwordEncoder.encode(newPassword);
+                user.setPassword(encodedPassword);
+                userRepository.save(user);
+            }
+        } catch (EntityNotFoundException e){
+            throw new CustomException("404", "User not found with this username: " + username);
+        }
+        return true;
     }
 
 

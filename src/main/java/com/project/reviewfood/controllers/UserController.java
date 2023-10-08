@@ -119,7 +119,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/getOtpToVerifyUserEmail")
-    public ResponseEntity<DataResponse> getOtpToVerifyUserEmail(@RequestParam String email) {
+    public ResponseEntity<DataResponse> getOtpToVerifyUserEmail(@RequestParam("email") String email) {
         Boolean isSendOtp = userService.sendOtpViaEmail(email);
         if(isSendOtp) {
             return ResponseEntity.status(HttpStatus.OK).body(
@@ -128,7 +128,8 @@ public class UserController {
         throw new CustomException("500", "Unable to send otp please try again!");
     }
     @PutMapping(value = "/verifyUserEmail")
-    public ResponseEntity<DataResponse> verifyUserEmail(@RequestParam String email, String otp) {
+    public ResponseEntity<DataResponse> verifyUserEmail(@RequestParam("email") String email,
+                                                        @RequestParam("otp") String otp) {
         Boolean isVerifiedEmail = userService.verifyUserEmail(email, otp);
         if(isVerifiedEmail) {
             return ResponseEntity.status(HttpStatus.OK).body(
@@ -137,7 +138,7 @@ public class UserController {
         throw new CustomException("500", "Please regenerate otp and try again!");
     }
     @PutMapping(value = "/regenerateOtp")
-    public ResponseEntity<DataResponse> regenerateOtp(@RequestParam String email) {
+    public ResponseEntity<DataResponse> regenerateOtp(@RequestParam("email") String email) {
         Boolean isRegenerateOtp = userService.sendOtpViaEmail(email);
         if(isRegenerateOtp) {
             return ResponseEntity.status(HttpStatus.OK).body(
@@ -145,5 +146,17 @@ public class UserController {
         }
         throw new CustomException("500", "Regenerate otp failed and try again!");
     }
+    @PutMapping(value = "/resetPassword")
+    public ResponseEntity<DataResponse> resetPassword(@RequestParam("username") String username,
+                                                      @RequestParam("password") String password,
+                                                      @RequestHeader("newPassword") String newPassword) {
+        Boolean isResetPassword = userService.resetPassword(username, password, newPassword);
+        if(isResetPassword) {
+            return ResponseEntity.status(HttpStatus.OK).body(
+                    new DataResponse("200", "Reset password successfully login with the new password", true));
+        }
+        throw new CustomException("500", "There are errors when reset password!");
+    }
+
 
 }

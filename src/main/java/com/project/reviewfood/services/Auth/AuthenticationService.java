@@ -10,4 +10,8 @@ import org.springframework.stereotype.Service;
 public interface AuthenticationService {
     User registerUser(RegisterUserRequest request);
     LoginResponse loginUser(LoginRequest request);
+    //========================================================================
+    Boolean forgotPassword(String email);
+
+    Boolean setNewPassword(String email, String newPassword);
 }

@@ -121,7 +121,7 @@ INSERT INTO review_food.notification VALUES (false, null, null, 2,'2023-02-07', 
 /*check table*/ 
 SELECT* FROM post_feed;
 SELECT* FROM restaurant;
-SELECT* FROM user;
+SELECT* FROM users;
 SELECT* FROM comment;
 SELECT* FROM friend;
 SELECT* FROM notification;

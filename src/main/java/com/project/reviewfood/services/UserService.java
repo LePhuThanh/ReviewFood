@@ -29,4 +29,5 @@ public interface UserService {
 
     Boolean verifyUserEmail(String email, String otp);
 
+    Boolean resetPassword(String username, String password, String newPassword);
 }

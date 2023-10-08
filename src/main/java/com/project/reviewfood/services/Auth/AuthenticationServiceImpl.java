@@ -6,6 +6,8 @@ import com.project.reviewfood.payloads.requests.LoginRequest;
 import com.project.reviewfood.payloads.requests.RegisterUserRequest;
 import com.project.reviewfood.repositories.RoleRepository;
 import com.project.reviewfood.repositories.UserRepository;
+import com.project.reviewfood.util.EmailUtil;
+import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ import org.springframework.security.core.Authentication;
 @Transactional
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService{
+    @Autowired
+    private EmailUtil emailUtil;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -67,7 +71,30 @@ public class AuthenticationServiceImpl implements AuthenticationService{
             String token = tokenService.generateJwt(auth);
             return new LoginResponse(userRepository.findUserByUsername(request.getUsername()), token);
         } catch (AuthenticationException e) {
-            return new LoginResponse(null, "Error don't authentication and generate JWT");
+            return new LoginResponse(null, "There was an error authenticating and generating JWT, please log in again.");
         }
+    }
+    //========================================================================
+    @Override
+    public Boolean forgotPassword(String email) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new CustomException("404","User not found with this email: " + email));
+        try {
+            emailUtil.sendResetPasswordEmail(email);
+        } catch (MessagingException e){
+            throw new CustomException("500","Unable to send set password email please try again!");
+        }
+        return true;
+    }
+
+    @Override
+    public Boolean setNewPassword(String email, String newPassword) {
+        User user = userRepository.findUserByEmail(email)
+                .orElseThrow(() -> new CustomException("404","User not found with this email: " + email));
+        //Encode Password
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+        return true;
     }
 }

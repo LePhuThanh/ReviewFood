@@ -16,9 +16,10 @@ public class EmailUtil {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         mimeMessageHelper.setTo(email);
-        mimeMessageHelper.setSubject("Verify OTP");
+        mimeMessageHelper.setSubject("Verify email using the OTP provided");
         mimeMessageHelper.setText(
                 """
+                        Please verify your email using the OTP provided via the link attached below.
                         <div>
                             <a href = "http://localhost:8080/verify-email?email=%s&otp=%s" target = "_blank">Click link to verify </a>
                         </div>
@@ -32,11 +33,12 @@ public class EmailUtil {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
         mimeMessageHelper.setTo(email);
-        mimeMessageHelper.setSubject("Set Password");
+        mimeMessageHelper.setSubject("Set a new password and don't forget again it!");
         mimeMessageHelper.setText(
                 """
+                        Please reset your new password via the link attached below.
                         <div>
-                            <a href = "http://localhost:8080/set-password?email=%s" target = "_blank">Click link to set password </a>
+                            <a href = "http://localhost:8080/setPassword?email=%s" target = "_blank">Click link to set password </a>
                         </div>
                         """
                         .formatted(email),
