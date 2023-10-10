@@ -6,6 +6,7 @@ import com.project.reviewfood.payloads.requests.LoginRequest;
 import com.project.reviewfood.payloads.requests.RegisterUserRequest;
 import com.project.reviewfood.repositories.RoleRepository;
 import com.project.reviewfood.repositories.UserRepository;
+import com.project.reviewfood.services.Impl.UserServiceImpl;
 import com.project.reviewfood.util.EmailUtil;
 import jakarta.mail.MessagingException;
 import jakarta.transaction.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.project.reviewfood.payloads.responses.LoginResponse;
@@ -37,6 +39,9 @@ public class AuthenticationServiceImpl implements AuthenticationService{
     private AuthenticationManager authenticationManager;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private UserServiceImpl userServiceIml;
+
 
     public User registerUser(RegisterUserRequest request){
         // Check exist username in DB
@@ -64,6 +69,25 @@ public class AuthenticationServiceImpl implements AuthenticationService{
                 authorities));
     }
 
+//    public LoginResponse loginUser(LoginRequest request) {
+//        try {
+//            Authentication auth = authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+//            // UsernamePasswordAuthenticationToken save inf authenticated user in SecurityContext
+//            // SecurityContextHolder provide method for SecurityContext
+//            String token = tokenService.generateJwt(auth);
+//            UserDetails userDetails = userServiceIml.loadUserByUsername(request.getUsername());
+////            System.out.println("DK " + tokenService.isTokenValid(token, userDetails));
+//            if(tokenService.isTokenValid(token, userDetails)){
+//                return new LoginResponse(userRepository.findUserByUsername(request.getUsername()), token);
+////                return new LoginResponse(userDetails, token);
+//            }else {
+//                return new LoginResponse(null, "Invalid token. Please log in again.");
+//            }
+//        } catch (AuthenticationException e) {
+//            return new LoginResponse(null, "There was an error authenticating and generating JWT, please log in again.");
+//        }
+//    }
     public LoginResponse loginUser(LoginRequest request) {
         try {
             Authentication auth = authenticationManager.authenticate(

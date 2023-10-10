@@ -36,6 +36,16 @@ public class SecurityConfig {
                         )
                 );
         http
+                .logout((logout)-> logout
+                        .logoutUrl("/api/v1/auth/logout") // link users click logout
+                        .logoutSuccessUrl("/api/v1/auth/login") // redirect login
+                        .invalidateHttpSession(true) // cancel HTTP session when logout
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID") // Remove cookies related to session
+                );
+
+
+        http
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         return http.build();
     }
@@ -46,3 +56,5 @@ public class SecurityConfig {
         };
     }
 }
+
+//https://docs.spring.io/spring-security/site/docs/current/api/deprecated-list.html   => for is deprecated
