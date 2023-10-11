@@ -12,19 +12,23 @@ import com.project.reviewfood.util.EmailUtil;
 import com.project.reviewfood.util.OtpUtil;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
@@ -131,17 +135,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Boolean resetPassword(String username, String password, String newPassword) {
         try {
-            User user = userRepository.findUserByUsername(username.trim());
-            if (user != null && Objects.equals(user.getPassword(), password)) { // equals compare string; == compare object => != location memory
+            User user = userRepository.findUserByUsername(username);
+            boolean isPasswordMatch = passwordEncoder.matches(password, user.getPassword());
+//            log.info("isPasswordMatch  " + isPasswordMatch);
+            if (isPasswordMatch) {
                 //Encode Password
-                String encodedPassword = passwordEncoder.encode(newPassword);
-                user.setPassword(encodedPassword);
+                String encodedNewPassword = passwordEncoder.encode(newPassword);
+                user.setPassword(encodedNewPassword);
                 userRepository.save(user);
+                return true;
             }
+            return  false;
         } catch (EntityNotFoundException e){
             throw new CustomException("404", "User not found with this username: " + username);
         }
-        return true;
     }
 
 

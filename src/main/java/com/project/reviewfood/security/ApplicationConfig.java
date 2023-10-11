@@ -72,3 +72,5 @@ public class ApplicationConfig {
         return jwtConverter;
     }
 }
+
+// https://viblo.asia/p/dang-ky-moi-voi-bao-mat-spring-ma-hoa-mat-khau-YWOZrVGYZQ0 //BCrypt
